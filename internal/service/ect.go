@@ -59,7 +59,7 @@ func (e *ECTService) GetCover(author string) {
 func (e *ECTService) GenerateBody() {
 	for _, img := range e.pathEvidences {
 		e.pdf.AddRow(120,
-			image.NewFromFileCol(12, fmt.Sprintf("assets/evidences/%s", img), props.Rect{Center: true, JustReferenceWidth: true}),
+			image.NewFromFileCol(12, img, props.Rect{Center: true, JustReferenceWidth: true}),
 		)
 	}
 }
@@ -69,34 +69,9 @@ func (e *ECTService) SavePDF() {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	err = document.Save(fmt.Sprintf("assets/pdfs/%s.pdf", e.name))
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-
-	err = document.GetReport().Save(fmt.Sprintf("assets/reports/%s.txt", e.name))
+	err = document.Save(fmt.Sprintf("%s.pdf", e.name))
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 	log.Printf("PDF '%s.pdf' gerado com sucesso!", e.name)
 }
-
-// func (e *ECTService) GenerateBody() {
-// 	for _, img := range e.pathEvidences {
-// 		e.pdf.AddRow(120,
-// 			image.NewFromFileCol(12, img, props.Rect{Center: true, JustReferenceWidth: true}),
-// 		)
-// 	}
-// }
-
-// func (e *ECTService) SavePDF() {
-// 	document, err := e.pdf.Generate()
-// 	if err != nil {
-// 		log.Fatal(err.Error())
-// 	}
-// 	err = document.Save(fmt.Sprintf("%s.pdf", e.name))
-// 	if err != nil {
-// 		log.Fatal(err.Error())
-// 	}
-// 	log.Printf("PDF '%s.pdf' gerado com sucesso!", e.name)
-// }

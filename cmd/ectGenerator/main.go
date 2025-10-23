@@ -1,37 +1,28 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/Alencar26/ECT-Generator/internal/service"
 	"github.com/Alencar26/ECT-Generator/pkg/files"
 )
 
 func main() {
-	path := "assets/evidences"
-	evidences := files.GetEvidences(path)
+	ectFile, err := files.NewECTFile()
+	if err != nil {
+		fmt.Println(err.Error())
+		fmt.Println("Renamed the file. Press ENTER to exit.")
+		fmt.Scanln()
+	}
 
-	ect := service.NewECTService("ECT_TS0000")
-	ect.SetEvidences(evidences)
-	ect.GetCover("Tester Name")
+	fmt.Println("Generating PDF...")
+
+	ect := service.NewECTService(fmt.Sprintf("%s_%s", ectFile.ECTType, ectFile.TestSuite))
+	ect.SetEvidences(ectFile.Evicences)
+	ect.GetCover(ectFile.Author)
 	ect.GenerateBody()
 	ect.SavePDF()
+
+	fmt.Println("PDF generated successfully! Press ENTER to exit.")
+	fmt.Scanln()
 }
-
-// func main() {
-// 	ectFile, err := files.NewECTFile()
-// 	if err != nil {
-// 		fmt.Println(err.Error())
-// 		fmt.Println("Renamed the file. Press ENTER to exit.")
-// 		fmt.Scanln()
-// 	}
-
-// 	fmt.Println("Generating PDF...")
-
-// 	ect := service.NewECTService(fmt.Sprintf("%s_%s", ectFile.ECTType, ectFile.TestSuite))
-// 	ect.SetEvidences(ectFile.Evicences)
-// 	ect.GetCover(ectFile.Author)
-// 	ect.GenerateBody()
-// 	ect.SavePDF()
-
-// 	fmt.Println("PDF generated successfully! Press ENTER to exit.")
-// 	fmt.Scanln()
-// }

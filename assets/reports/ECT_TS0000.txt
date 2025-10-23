@@ -1,0 +1,4 @@
+generate -> avg: 32.90ms, executions: [32.90ms]
+footer -> avg: 314.00ns, executions: [314.00ns]
+add_row -> avg: 708.44ns, executions: [1.12μs, 0.22μs, 0.34μs, 0.14μs, 0.22μs, 0.12μs, 0.21μs, 0.25μs, 1.09μs, 0.19μs, 0.61μs, 0.16μs, 5.81μs, 0.17μs, 0.53μs, 0.15μs]
+file_size -> 263.86Kb
